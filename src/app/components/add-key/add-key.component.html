@@ -1,0 +1,35 @@
+<div class="row justify-content-md-center">
+  <div class="col-sm-7">
+    <div class="card text-black bg-light mb-3 ">
+      <div class="card-header  text-center">
+        <h3>Account set up</h3>
+        {{diagnostic}}
+      </div>
+      <div class="card-body">
+        <p class="card-text text-center">With the help below information we Generate password for you</p>
+        <form>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Please enter a name" 
+            [(ngModel)]= 'passwordKey.name'
+            />
+          </div>
+          <div class="form-group">
+            <label for="number">Number</label>
+            <input type="number" name="number" min="4" max="4" class="form-control" id="number" placeholder="please enter a number"
+            [(ngModel)] ='passwordKey.number' >
+            <small class="form-text text-muted">4 digit pin only</small>
+          </div>
+          <div class="form-group">
+            <label for="symbol">Symbol</label>
+            <input type="text" name="symbol" class="form-control" id="symbol" placeholder="Please enter a symbol"
+            [(ngModel)] ='passwordKey.symbol' >
+          </div>
+          <div class="float-right  ">
+            <button type="button" class="btn btn-primary" (click)= "savePasswordKey()">Next</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
