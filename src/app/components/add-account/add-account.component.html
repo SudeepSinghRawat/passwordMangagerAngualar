@@ -11,11 +11,11 @@
           <div class="form-group">
             <label for="websiteLink">Webisite link</label>
             <input type="url" name="websiteLink" class="form-control" id="websiteLink" aria-describedby="defaultPin" placeholder="Please entter your account link"
-             [(ngModel)] ="password.website"  />
+             [(ngModel)] ="password.websiteUrl" (blur) ="genrateWebsiteName()" />
           </div>
-          <div class="form-group">
-            <input type="text" readonly name="websiteName" class="form-control" id="websiteName" aria-describedby="websiteName" placeholder="Your Website Name"
-            [(ngModel)] = "password.websiteUrl">
+          <div class="form-group capa">
+            <input type="text" readonly name="websiteName" class="form-control " id="websiteName" aria-describedby="websiteName" placeholder="Your Website Name"
+            [(ngModel)] = "password.website">
             <small class="form-text text-muted">Your Website Name</small>
           </div>
           <div class="form-group">
@@ -45,8 +45,8 @@
           <!-- <input type="reset" class="btn btn-info float-right">Reset</button> -->
           <div class="float-right">
             <button type="reset" class="btn btn-secondary">Reset</button>
-            <button type="button" class="btn btn-success ">Next</button>
-            <button type="button" class="btn btn-primary ">Submit</button>
+            <button type="button" class="btn btn-success " (click) ="next()" >Next</button>
+            <button type="button" class="btn btn-primary "(click) = "nextStep()">Submit</button>
           </div>
 
         </form>

@@ -17,4 +17,15 @@ export class Password {
         this.confirmPassword = '';
         this.priority = 'High';
     }
+
+    public create(id: number): void {
+
+    }
+
+    public  getwebSite(): String {
+        return this.websiteUrl;
+    }
+    public setWebsiteName(website: String): void {
+        this.website = website;
+    }
 }

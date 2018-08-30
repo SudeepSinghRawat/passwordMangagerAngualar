@@ -9,6 +9,8 @@ import { AddPinComponent } from './components/add-pin/add-pin.component';
 import { AddKeyComponent } from './components/add-key/add-key.component';
 import { AddAccountComponent } from './components/add-account/add-account.component';
 import { AppRoutingModule } from './router/app-routing.module';
+import { HttpClientModule} from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { AppRoutingModule } from './router/app-routing.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

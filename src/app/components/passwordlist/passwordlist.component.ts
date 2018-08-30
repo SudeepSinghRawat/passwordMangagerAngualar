@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Password } from '../../model/password';
+import { PasswrodService } from '../../service/passwrod.service';
 
 @Component({
   selector: 'app-passwordlist',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PasswordlistComponent implements OnInit {
 
-  constructor() { }
+  passwords: Password[];
+  passwordlist: Array<Password>;
+
+  constructor(private passwordService: PasswrodService) { }
 
   ngOnInit() {
+    this.passwordService.getAllPassword().subscribe(
+      (response: Password[]) => {
+        console.log(response);
+        this.passwords = { ... response};
+        console.log(this.passwords[0]);
+        this.passwordlist = response;
+      }
+    );
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PasswordKey } from '../../model/password-key';
 import { Router } from '@angular/router';
+import { PasswrodService } from '../../service/passwrod.service';
+import { Myresponse } from '../../model/myresponse';
 
 
 @Component({
@@ -10,15 +12,25 @@ import { Router } from '@angular/router';
 })
 export class AddKeyComponent implements OnInit {
   passwordKey = new PasswordKey();
+  myResponse = new Myresponse();
 
   ngOnInit() {
   }
-  constructor(private router: Router) {
+  constructor(private router: Router, private passwordService: PasswrodService) {
 
   }
   public savePasswordKey() {
     console.log('im here');
-    this.router.navigateByUrl('/step3');
+    this.passwordService.savePasswordKey(this.passwordKey).subscribe(
+      (respose: Myresponse) => {
+        console.log(respose);
+        this.myResponse = { ... respose };
+        if (this.myResponse.status === true) {
+          this.router.navigateByUrl('/step3');
+        }
+      }
+    );
+    //
   }
   get diagnostic() { return JSON.stringify(this.passwordKey); }
 
