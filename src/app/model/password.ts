@@ -28,4 +28,7 @@ export class Password {
     public setWebsiteName(website: String): void {
         this.website = website;
     }
+    public get getId(): Number {
+        return 1;
+    }
 }
