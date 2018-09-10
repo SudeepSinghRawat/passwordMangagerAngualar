@@ -14,20 +14,20 @@
 
       <div class="form-group">
         <label for="defaultPin">Default Pin</label>
-        <input type="text" name="defaultPin" class="form-control" id="defaultPin" aria-describedby="defaultPin"
-          placeholder="Please enter your old Pin" formControlName="defaultPin" />
+        <input type="text" name="defaultPin" class="form-control" id="defaultPin" aria-describedby="defaultPin" placeholder="Please enter your old Pin"
+          formControlName="defaultPin" />
         <small id="defaultPin" class="form-text text-muted">Check your Email address for default pin.</small>
 
         <div *ngIf="defaultPin.invalid && (defaultPin.dirty || defaultPin.touched)" class="alert alert-danger">
 
           <div *ngIf="defaultPin.errors.required">
-           Default pin required
+            Default pin required
           </div>
           <div *ngIf="defaultPin.errors.minlength">
             Pin must be at least 3 characters long.
           </div>
           <div *ngIf="defaultPin.errors.pattern">
-            Pin should be  digit only
+            Pin should be digit only
           </div>
 
         </div>
@@ -41,38 +41,38 @@
 
       <div *ngIf="newPin.invalid && (newPin.dirty || newPin.touched)" class="alert alert-danger">
 
-          <div *ngIf="newPin.errors.required">
-            Pin required
-          </div>
-          <div *ngIf="newPin.errors.minlength">
-            Pin must be at least 4 characters long.
-          </div>
-          <div *ngIf="newPin.errors.pattern">
-            Pin should be  digit only
-          </div>
-
+        <div *ngIf="newPin.errors.required">
+          Pin required
         </div>
+        <div *ngIf="newPin.errors.minlength">
+          Pin must be at least 4 characters long.
+        </div>
+        <div *ngIf="newPin.errors.pattern">
+          Pin should be digit only
+        </div>
+
+      </div>
 
       <div class="form-group">
         <label for="setPin">Confirm Pin</label>
-        <input type="password" name="confirmPin" class="form-control" id="confirmPin" aria-describedby="setPin"
-          placeholder="Please enter your Pin" formControlName="confirmPin">
+        <input type="password" name="confirmPin" class="form-control" id="confirmPin" aria-describedby="setPin" placeholder="Please enter your Pin"
+          formControlName="confirmPin">
 
       </div>
       <div *ngIf="confirmPin.invalid && (confirmPin.dirty || confirmPin.touched)" class="alert alert-danger">
 
-          <div *ngIf="confirmPin.errors.required">
-            Confirm pin is required.
-          </div>
-          <div *ngIf="confirmPin.errors.minlength">
-            Confirm pin must be at least 4 characters long.
-          </div>
-          <div *ngIf="confirmPin.errors.isError">
-            Your Pin does not match
-          </div>
-
+        <div *ngIf="confirmPin.errors.required">
+          Confirm pin is required.
         </div>
-        <button type="submit" class="btn btn-primary"  [disabled]="pinForm.invalid" (click) ="checkPin()" >Next</button>
-        
+        <div *ngIf="confirmPin.errors.minlength">
+          Confirm pin must be at least 4 characters long.
+        </div>
+        <div *ngIf="confirmPin.errors.isError">
+          Your Pin does not match
+        </div>
+
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="pinForm.invalid" (click)="checkPin()">Next</button>
+
     </form>
   </div>

@@ -1,7 +1,7 @@
 export class PasswordKey {
-    private  name: String;
-    private number: Number;
-    private symbol: String;
+    public  name: String;
+    public number: Number;
+    public symbol: String;
 
     constructor() {
         this.name = '';

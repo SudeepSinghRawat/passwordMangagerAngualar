@@ -13,7 +13,7 @@ export class PasswordlistComponent implements OnInit {
 
   passwords: Password[];
   passwordlist: Array<Password>;
-  password =  new Password();
+  password = Password.creatBlank();
   index: any;
 
   constructor(private passwordService: PasswrodService) { }

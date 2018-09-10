@@ -3,7 +3,7 @@ import { Password } from '../../model/password';
 import { PasswrodService } from '../../service/passwrod.service';
 import { Router } from '@angular/router';
 import { Myresponse } from '../../model/myresponse';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-account',
@@ -15,13 +15,51 @@ export class AddAccountComponent implements OnInit {
   priorityList = ['High', 'Low', 'Medium'];
   webSiteName: String;
 
-  password = new Password();
+  password = Password.creatBlank();
   myResponse = new Myresponse();
-
+  accountForm: FormGroup;
   constructor(private passwordServie: PasswrodService , private router: Router) { }
 
   ngOnInit() {
+    this.accountForm = new FormGroup({
+      'websiteLink' : new FormControl('',[
+        Validators.required
+      ]),
+      'website' : new FormControl('',[
+        Validators.required
+      ]),
+      'username' : new FormControl('',[
+        Validators.required
+      ]),
+      'password' : new FormControl('',[
+        Validators.required
+      ]),
+      'confirmPassword' : new FormControl('',[
+        Validators.required
+      ]),
+      'priority' : new FormControl('',[
+        Validators.required
+      ])
+    });
   }
+
+   get websiteLink() {
+     return this.accountForm.get('websiteLink');
+   }
+   get website() {
+     return this.accountForm.get('website');
+   }
+   get username() {
+     return this.accountForm.get('username');
+   }
+
+   get confirmPassword() {
+     return this.accountForm.get('confirmPassword');
+   }
+
+   get priority() {
+     return this.accountForm.get('priority');
+   }
   get diagnostic() { return JSON.stringify(this.password); }
 
   next() {

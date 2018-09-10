@@ -3,30 +3,61 @@
     <div class="card text-black bg-light mb-3 ">
       <div class="card-header  text-center">
         <h3>Account set up</h3>
-        {{diagnostic}}
+
       </div>
       <div class="card-body">
         <p class="card-text text-center">With the help below information we Generate password for you</p>
-        <form>
+        <form [formGroup]="keyForm" #formDir="ngForm">
           <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" class="form-control" id="name" placeholder="Please enter a name" 
-            [(ngModel)]= 'passwordKey.name'
-            />
+            <label for="nameInput">Name</label>
+            <input type="text" class="form-control" id="nameInput" placeholder="Please enter a name" formControlName="name" />
+          </div>
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">
+              Key name is required
+            </div>
+            <div *ngIf="name.errors.pattern">
+              Please input valid Name 
+            </div>
+            <div *ngIf= "name.errors.minlength">
+              Name can be in between 4 to 12 
+            </div>
+            <div *ngIf= "name.errors.maxlength">
+              Name can be in between 4 to 12 
+            </div>
           </div>
           <div class="form-group">
             <label for="number">Number</label>
-            <input type="number" name="number" min="4" max="4" class="form-control" id="number" placeholder="please enter a number"
-            [(ngModel)] ='passwordKey.number' >
+            <input type="number" name="number" class="form-control" id="number" placeholder="please enter a number" formControlName="number">
             <small class="form-text text-muted">4 digit pin only</small>
+          </div>
+
+          <div *ngIf="number.invalid && (number.dirty || number.touched)" class="alert alert-danger">
+            <div *ngIf="number.errors.required">
+              Key Number is required
+            </div>
+
+            <div *ngIf="number.errors.pattern">
+              Please input valid Number
+            </div>
           </div>
           <div class="form-group">
             <label for="symbol">Symbol</label>
-            <input type="text" name="symbol" class="form-control" id="symbol" placeholder="Please enter a symbol"
-            [(ngModel)] ='passwordKey.symbol' >
+            <input type="text" name="symbol" class="form-control" id="symbol" placeholder="Please enter a symbol" formControlName="symbol">
+            <small class="form-text text-muted">1 digit pin only</small>
           </div>
+          <div *ngIf="symbol.invalid && (symbol.dirty || symbol.touched)" class="alert alert-danger">
+            <div *ngIf="symbol.errors.required">
+              Key Symbol is required
+            </div>
+            <div *ngIf="symbol.errors.pattern">
+              Please input valid Symbol
+            </div>
+          </div>
+
           <div class="float-right  ">
-            <button type="button" class="btn btn-primary" (click)= "savePasswordKey()">Next</button>
+            <!-- <button type="button" class="btn btn-primary" (click)= "savePasswordKey()">Next</button> -->
+            <button type="submit" class="btn btn-primary" [disabled]="keyForm.invalid" (click)="savePasswordKey()">Next</button>
           </div>
         </form>
       </div>
