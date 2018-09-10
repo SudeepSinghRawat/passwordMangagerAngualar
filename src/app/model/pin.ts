@@ -1,7 +1,7 @@
 export class Pin {
-    private oldPin: Number;
-    private newpin: Number;
-    private confirmPin: Number;
+    public oldPin: Number;
+    public  newpin: Number;
+    public confirmPin: Number;
 
     constructor(oldPin: Number , pin: Number, confirmPin: Number) {
         this.oldPin = oldPin;

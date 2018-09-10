@@ -1,34 +1,78 @@
 <div class="card">
-    <div class="card-header">
-     Set Pin
+  <div class="card-header">
+    Set Pin
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Set up your pin</h5>
+    <div class="alert alert-danger" role="alert" *ngIf="defaultPinErro">
+      Your Default Pin is not same please try again !
     </div>
-    <div class="card-body">
-      <h5 class="card-title">Set up your pin</h5>
-      <div class="alert alert-danger" role="alert" *ngIf="defaultPinErro">
-       Your Default Pin is not same please try again !
+    <div class="alert alert-danger" role="alert" *ngIf="pinDontMatch">
+      Your New Pin and confirm pin should Match !
+    </div>
+    <form [formGroup]="pinForm" #formDir="ngForm">
+
+      <div class="form-group">
+        <label for="defaultPin">Default Pin</label>
+        <input type="text" name="defaultPin" class="form-control" id="defaultPin" aria-describedby="defaultPin"
+          placeholder="Please enter your old Pin" formControlName="defaultPin" />
+        <small id="defaultPin" class="form-text text-muted">Check your Email address for default pin.</small>
+
+        <div *ngIf="defaultPin.invalid && (defaultPin.dirty || defaultPin.touched)" class="alert alert-danger">
+
+          <div *ngIf="defaultPin.errors.required">
+           Default pin required
+          </div>
+          <div *ngIf="defaultPin.errors.minlength">
+            Pin must be at least 3 characters long.
+          </div>
+          <div *ngIf="defaultPin.errors.pattern">
+            Pin should be  digit only
+          </div>
+
+        </div>
       </div>
-      <div class="alert alert-danger" role="alert" *ngIf="pinDontMatch">
-        Your New Pin  and confirm pin should Match !
-       </div>
-      <form>
-        <div class="form-group">
-          <label for="defaultPin">Default Pin</label>
-          <input type="text" name="defaultPin" class="form-control" id ="defaultPin" aria-describedby="defaultPin" placeholder="Please enter your old Pin"
-           [(ngModel)]="pin.oldPin" />
-          <small id="defaultPin" class="form-text text-muted">Check your Email address for default pin.</small>
+      <div class="form-group">
+        <label for="setPin">New Pin</label>
+        <input type="password" name="setPin" class="form-control" id="setPin" aria-describedby="setPin" placeholder="Please enter your Pin"
+          formControlName="newPin">
+        <small id="setPin" class="form-text text-muted">We will encript all your password with this pin.</small>
+      </div>
+
+      <div *ngIf="newPin.invalid && (newPin.dirty || newPin.touched)" class="alert alert-danger">
+
+          <div *ngIf="newPin.errors.required">
+            Pin required
+          </div>
+          <div *ngIf="newPin.errors.minlength">
+            Pin must be at least 4 characters long.
+          </div>
+          <div *ngIf="newPin.errors.pattern">
+            Pin should be  digit only
+          </div>
+
         </div>
-        <div class="form-group">
-          <label for="setPin">New Pin</label>
-          <input type ="password" name="setPin" class="form-control" id ="setPin" aria-describedby="setPin" placeholder="Please enter your Pin"
-          [(ngModel)]="pin.newpin" >
-          <small id="setPin" class="form-text text-muted">We will encript all your password with this pin.</small>
+
+      <div class="form-group">
+        <label for="setPin">Confirm Pin</label>
+        <input type="password" name="confirmPin" class="form-control" id="confirmPin" aria-describedby="setPin"
+          placeholder="Please enter your Pin" formControlName="confirmPin">
+
+      </div>
+      <div *ngIf="confirmPin.invalid && (confirmPin.dirty || confirmPin.touched)" class="alert alert-danger">
+
+          <div *ngIf="confirmPin.errors.required">
+            Confirm pin is required.
+          </div>
+          <div *ngIf="confirmPin.errors.minlength">
+            Confirm pin must be at least 4 characters long.
+          </div>
+          <div *ngIf="confirmPin.errors.isError">
+            Your Pin does not match
+          </div>
+
         </div>
-        <div class="form-group">
-          <label for="setPin">Confirm Pin</label>
-          <input type ="password" name="confirmPin" class="form-control" id ="confirmPin" aria-describedby="setPin" placeholder="Please enter your Pin"
-          [(ngModel)]="pin.confirmPin" >
-        </div>
-      </form>
-      
-      <a  class="btn btn-primary pull-right" (click)="checkPin()">Next</a>
-    </div>
+        <button type="submit" class="btn btn-primary"  [disabled]="pinForm.invalid" (click) ="checkPin()" >Next</button>
+        
+    </form>
+  </div>
