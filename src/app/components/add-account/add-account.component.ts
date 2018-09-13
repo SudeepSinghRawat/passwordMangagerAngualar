@@ -4,6 +4,9 @@ import { PasswrodService } from '../../service/passwrod.service';
 import { Router } from '@angular/router';
 import { Myresponse } from '../../model/myresponse';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { isValidUrl, confirmPassword} from '../../validator/customvalidation'
+
+
 
 @Component({
   selector: 'app-add-account',
@@ -15,7 +18,7 @@ export class AddAccountComponent implements OnInit {
   priorityList = ['High', 'Low', 'Medium'];
   webSiteName: String;
 
-  password = Password.creatBlank();
+  pas = Password.creatBlank();
   myResponse = new Myresponse();
   accountForm: FormGroup;
   constructor(private passwordServie: PasswrodService , private router: Router) { }
@@ -23,7 +26,8 @@ export class AddAccountComponent implements OnInit {
   ngOnInit() {
     this.accountForm = new FormGroup({
       'websiteLink' : new FormControl('',[
-        Validators.required
+        Validators.required,
+        isValidUrl
       ]),
       'website' : new FormControl('',[
         Validators.required
@@ -35,16 +39,21 @@ export class AddAccountComponent implements OnInit {
         Validators.required
       ]),
       'confirmPassword' : new FormControl('',[
-        Validators.required
+        Validators.required,
+        confirmPassword
       ]),
       'priority' : new FormControl('',[
         Validators.required
       ])
     });
+    this.accountForm.controls.password.valueChanges.subscribe(
+      x=>this.accountForm.controls.confirmPassword.updateValueAndValidity()
+    );
   }
 
    get websiteLink() {
      return this.accountForm.get('websiteLink');
+
    }
    get website() {
      return this.accountForm.get('website');
@@ -52,7 +61,10 @@ export class AddAccountComponent implements OnInit {
    get username() {
      return this.accountForm.get('username');
    }
-
+   get password() {
+     console.log(this.accountForm.get('password'));
+     return this.accountForm.get('password');
+   }
    get confirmPassword() {
      return this.accountForm.get('confirmPassword');
    }
@@ -60,10 +72,10 @@ export class AddAccountComponent implements OnInit {
    get priority() {
      return this.accountForm.get('priority');
    }
-  get diagnostic() { return JSON.stringify(this.password); }
+  
 
   next() {
-    this.passwordServie.savePassword(this.password).subscribe(
+    this.passwordServie.savePassword(this.pas).subscribe(
       (response: Myresponse) => {
         this.myResponse = { ... response };
         console.log(response);
@@ -71,8 +83,10 @@ export class AddAccountComponent implements OnInit {
     );
   }
   genrateWebsiteName() {
-    console.log(this.password.getwebSite());
-    this.webSiteName = this.password.getwebSite();
+
+    //console.log(urlRegex().test('http://github.com foo bar'));
+    console.log(this.accountForm.get('websiteLink').value);
+    this.webSiteName = this.accountForm.get('websiteLink').value;
     const patt1 = /(https:|http:)/g;
     let result = this.webSiteName.replace(patt1, '');
      result = result.replace('//', '');
@@ -81,10 +95,13 @@ export class AddAccountComponent implements OnInit {
     const first = result.substring(result.lastIndexOf('.') + 1, result.length);
     result = result.replace(first, '');
     result = result.substring(0, result.length - 1);
-    this.password.setWebsiteName(first + ' ' + result);
+    this.accountForm.patchValue({
+      'website' : first + ' ' + result,
+    });
+    //this.password.setWebsiteName(first + ' ' + result);
   }
   nextStep() {
-    this.passwordServie.savePassword(this.password).subscribe(
+    this.passwordServie.savePassword(this.pas).subscribe(
       (response: Myresponse) => {
         this.myResponse = { ... response };
         console.log(response);

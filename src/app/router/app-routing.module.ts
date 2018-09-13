@@ -12,6 +12,7 @@ const router: Routes = [
   {path: 'step3', component: AddAccountComponent},
   {path: 'step4', component: PasswordlistComponent},
   { path: '', redirectTo: '/step1', pathMatch: 'full' },
+  { path: '**', component:AddPinComponent}
 ];
 
 @NgModule({

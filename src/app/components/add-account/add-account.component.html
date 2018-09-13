@@ -7,16 +7,29 @@
       </div>
       <div class="card-body">
         <h4 class="card-title text-center">Set up your Account</h4>
-        <form [formGroup]="accountForm" #formDir="ngForm">
+        <form [formGroup]="accountForm">
           <div class="form-group">
             <label for="websiteLink">Webisite link</label>
-            <input type="url" name="websiteLink" class="form-control" id="websiteLink" aria-describedby="defaultPin" placeholder="Please entter your account link"
+            <input type="url" name="websiteLink" class="form-control" id="websiteLink" aria-describedby="defaultPin" placeholder="Please enter your account link"
             formControlName="websiteLink" (blur) ="genrateWebsiteName()" />
+          </div>
+          <div *ngIf="websiteLink.invalid && (websiteLink.dirty || websiteLink.touched )" class = "alert alert-danger">
+            <div *ngIf = "websiteLink.errors.required">
+              Website url required
+            </div>
+            <div *ngIf= "websiteLink.errors.isValidUrl">
+              Invalid Url
+            </div>
           </div>
           <div class="form-group capa">
             <input type="text" readonly name="websiteName" class="form-control " id="websiteName" aria-describedby="websiteName" placeholder="Your Website Name"
              formControlName= "website"  >
             <small class="form-text text-muted">Your Website Name</small>
+          </div>
+          <div *ngIf="website.invalid && ( website.dirty || website.touched)">
+             <div *ngIf ="website.errors.required" >
+               this felid required
+             </div>
           </div>
           <div class="form-group">
             <label for="userName">User Name</label>
@@ -24,18 +37,39 @@
              formControlName ="username" >
           </div>
 
+          <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+            <div *ngIf="username.errors.required">
+              This felid required
+            </div>
+          </div>
+
+
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" name="password" class="form-control" id="password" aria-describedby="password" placeholder="Please entet your Password"
               formControlName= "password" />
           </div>
+        
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+              <div *ngIf="password.errors.required">
+                This felid required
+              </div>
+            </div>
 
           <div class="form-group">
             <!-- <label for="confirm" >Confirm Password</label> -->
             <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirm Password" 
               formControlName="confirmPassword" />
           </div>
-          
+
+          <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
+              <div *ngIf="confirmPassword.errors.required">
+                This felid requiredsssss
+              </div>
+              <div *ngIf="confirmPassword.errors.isPasswordMatch" >
+                  Password doent not match 
+               </div>
+            </div>          
           <div class="form-group">
             <label for="priorityChoice">Priority</label>
             <select class="form-control" name ="priorityChoice" id="priorityChoice" formControlName="priority" >
@@ -46,8 +80,8 @@
           <!-- <input type="reset" class="btn btn-info float-right">Reset</button> -->
           <div class="float-right">
             <button type="reset" class="btn btn-secondary">Reset</button>
-            <button type="button" class="btn btn-success " (click) ="next()" >Next</button>
-            <button type="button" class="btn btn-primary "(click) = "nextStep()">Submit</button>
+            <button type="button" [disabled]="accountForm.invalid" class="btn btn-success " (click) ="next()" >Next</button>
+            <button type="button" [disabled]="accountForm.invalid" class="btn btn-primary "(click) = "nextStep()">Submit</button>
           </div>
 
         </form>
